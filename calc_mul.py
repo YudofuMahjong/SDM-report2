@@ -1,15 +1,21 @@
 #!/usr/bin/python3
-
 import re
-                
+
 def calc(A,B):
         ai=str(A)
         bi=str(B)
-        p = re.compile('\d+(\.\d+)?')
-        if p.match(ai) or p.match(bi):
-                a=float(ai)
-                b=float(bi)
-                if 0<a and a<b and b<1000:
+        
+        # 整数のみを許可する正規表現 (小数点は含めない)
+        p = re.compile('^\d+$')
+        
+        # 両方の入力が数値形式であるかチェック
+        if p.match(ai) and p.match(bi):
+                a=int(ai)
+                b=int(bi)
+                
+                # 仕様通りの範囲チェック (1〜999)
+                # 大小関係(a<b)の条件は削除
+                if 1 <= a <= 999 and 1 <= b <= 999:
                         valid=True
                 else:
                         valid=False
@@ -21,7 +27,6 @@ def calc(A,B):
                 return ans
         else:
                 return -1
-        
                 
 def main ():
 	matchstring = ''
